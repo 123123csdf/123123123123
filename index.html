@@ -1,65 +1,1547 @@
+
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IRONCLAD Спортни Съоръжения</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-        header { background: #4CAF50; color: white; padding: 10px 0; text-align: center; }
-        nav a { margin: 15px; color: white; text-decoration: none; }
-        .hero { background: url('hero.jpg') no-repeat center center/cover; height: 400px; display: flex; align-items: center; justify-content: center; }
-        .hero h1 { color: white; }
-        .product-category { display: flex; justify-content: space-around; padding: 20px; }
-        .featured-products { display: flex; justify-content: space-around; padding: 20px; }
-        footer { text-align: center; padding: 10px 0; background: #333; color: white; position: relative; bottom: 0; width: 100%; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IRONCLAD — Екипировка за Бойни Спортове</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --deep: #111111;
+    --surface: #1a1a1a;
+    --card: #1e1e1e;
+    --red: #e8192c;
+    --red-dark: #b5101f;
+    --gold: #c9a84c;
+    --white: #f0ece4;
+    --grey: #888;
+    --border: rgba(255,255,255,0.07);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  /* ---- NOISE OVERLAY ---- */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ---- NAV ---- */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 64px;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 4px;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--red); }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--grey);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .cart-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--red);
+    border: none;
+    padding: 10px 20px;
+    cursor: crosshair;
+    transition: background 0.2s;
+  }
+
+  .cart-btn:hover { background: var(--red-dark); }
+
+  /* ---- HERO ---- */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 60px 80px 80px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 2px;
+    background: var(--red);
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 8vw, 130px);
+    line-height: 0.92;
+    letter-spacing: 2px;
+    margin-bottom: 32px;
+  }
+
+  .hero-title .accent { color: var(--red); }
+  .hero-title .stroke {
+    -webkit-text-stroke: 2px var(--white);
+    color: transparent;
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(240,236,228,0.6);
+    line-height: 1.8;
+    max-width: 420px;
+    margin-bottom: 48px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--red);
+    border: none;
+    padding: 18px 40px;
+    cursor: crosshair;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--white);
+    transform: translateX(-101%);
+    transition: transform 0.3s ease;
+  }
+
+  .btn-primary:hover { color: var(--black); }
+  .btn-primary:hover::after { transform: translateX(0); }
+
+  .btn-primary span { position: relative; z-index: 1; }
+
+  .btn-secondary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--white);
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 18px 40px;
+    cursor: crosshair;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover { border-color: var(--white); }
+
+  .hero-stats {
+    display: flex;
+    gap: 48px;
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .stat-num span { color: var(--red); }
+
+  .stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin-top: 4px;
+  }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--black) 0%, transparent 40%);
+    z-index: 1;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28vw;
+    color: rgba(255,255,255,0.03);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    z-index: 0;
+    pointer-events: none;
+    letter-spacing: -10px;
+  }
+
+  .hero-visual {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-ring {
+    width: 480px;
+    height: 480px;
+    position: relative;
+  }
+
+  /* SVG Fighter illustration */
+  .fighter-svg {
+    width: 100%;
+    height: 100%;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 60px rgba(232,25,44,0.3));
+  }
+
+  /* ---- TICKER ---- */
+  .ticker {
+    background: var(--red);
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .ticker-inner {
+    display: inline-flex;
+    animation: ticker 25s linear infinite;
+  }
+
+  .ticker-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 4px;
+    padding: 0 40px;
+    color: var(--white);
+    opacity: 0.9;
+  }
+
+  .ticker-dot {
+    color: rgba(255,255,255,0.4);
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ---- CATEGORIES ---- */
+  .section {
+    padding: 100px 80px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 60px;
+  }
+
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--red);
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(44px, 5vw, 72px);
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+
+  .section-link {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--grey);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+    padding-bottom: 4px;
+  }
+
+  .section-link:hover { color: var(--white); }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .cat-card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    cursor: crosshair;
+    group: true;
+  }
+
+  .cat-bg {
+    position: absolute;
+    inset: 0;
+    transition: transform 0.6s ease;
+  }
+
+  .cat-card:hover .cat-bg {
+    transform: scale(1.06);
+  }
+
+  .cat-boxing .cat-bg {
+    background: linear-gradient(160deg, #1a0a0d 0%, #2d0a10 40%, #0a0a0a 100%);
+  }
+
+  .cat-wrestling .cat-bg {
+    background: linear-gradient(160deg, #0a0d1a 0%, #0a102d 40%, #0a0a0a 100%);
+  }
+
+  .cat-mma .cat-bg {
+    background: linear-gradient(160deg, #0d1a0a 0%, #102d0a 40%, #0a0a0a 100%);
+  }
+
+  .cat-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.08;
+  }
+
+  .cat-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 40px 36px;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);
+    z-index: 2;
+  }
+
+  .cat-icon {
+    font-size: 56px;
+    margin-bottom: 16px;
+    filter: drop-shadow(0 0 20px rgba(232,25,44,0.5));
+    transform: translateY(8px);
+    transition: transform 0.3s ease;
+  }
+
+  .cat-card:hover .cat-icon {
+    transform: translateY(0);
+  }
+
+  .cat-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .cat-sub {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(240,236,228,0.5);
+    margin-bottom: 20px;
+  }
+
+  .cat-count {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+
+  .cat-overlay-line {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0;
+    width: 3px;
+    background: var(--red);
+    transform: scaleY(0);
+    transition: transform 0.4s ease;
+    transform-origin: bottom;
+  }
+
+  .cat-card:hover .cat-overlay-line {
+    transform: scaleY(1);
+  }
+
+  /* ---- FEATURED PRODUCTS ---- */
+  .products-section {
+    background: var(--deep);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .product-card {
+    background: var(--card);
+    padding: 0;
+    cursor: crosshair;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+
+  .product-card:hover {
+    background: #222;
+  }
+
+  .product-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    z-index: 2;
+  }
+
+  .badge-new { background: var(--red); color: var(--white); }
+  .badge-sale { background: var(--gold); color: var(--black); }
+  .badge-hot { background: #ff6b00; color: var(--white); }
+  .badge-pro { background: var(--surface); color: var(--white); border: 1px solid var(--border); }
+
+  .product-img {
+    width: 100%;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(232,25,44,0.08) 0%, transparent 70%);
+  }
+
+  .product-hover-line {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--red);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .product-card:hover .product-hover-line {
+    transform: scaleX(1);
+  }
+
+  .product-info {
+    padding: 24px 24px 28px;
+  }
+
+  .product-cat {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+
+  .product-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .product-brand {
+    font-size: 12px;
+    color: var(--grey);
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+
+  .product-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .product-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--white);
+    letter-spacing: 1px;
+  }
+
+  .product-price .old {
+    font-size: 16px;
+    color: var(--grey);
+    text-decoration: line-through;
+    margin-right: 8px;
+  }
+
+  .add-btn {
+    width: 40px;
+    height: 40px;
+    background: var(--red);
+    border: none;
+    color: var(--white);
+    font-size: 20px;
+    cursor: crosshair;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.1s;
+    flex-shrink: 0;
+  }
+
+  .add-btn:hover {
+    background: var(--red-dark);
+    transform: scale(1.1);
+  }
+
+  /* ---- MAGAZINE SECTION ---- */
+  .magazine-section {
+    padding: 100px 80px;
+  }
+
+  .magazine-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .mag-card {
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+    cursor: crosshair;
+  }
+
+  .mag-card-big {
+    grid-row: span 2;
+    min-height: 600px;
+  }
+
+  .mag-card-small {
+    min-height: 295px;
+  }
+
+  .mag-img {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100px;
+    opacity: 0.15;
+    transition: opacity 0.3s, transform 0.5s;
+  }
+
+  .mag-card:hover .mag-img {
+    opacity: 0.2;
+    transform: scale(1.05);
+  }
+
+  .mag-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 32px;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 30%, transparent 100%);
+    z-index: 2;
+  }
+
+  .mag-cat {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 10px;
+  }
+
+  .mag-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    line-height: 1.05;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+
+  .mag-card-big .mag-title {
+    font-size: 52px;
+  }
+
+  .mag-card:hover .mag-title {
+    color: var(--red);
+  }
+
+  .mag-meta {
+    font-size: 11px;
+    color: var(--grey);
+    letter-spacing: 1px;
+  }
+
+  /* ---- BRAND STRIP ---- */
+  .brands-section {
+    padding: 60px 80px;
+    border-top: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .brands-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--grey);
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .brands-track {
+    display: flex;
+    gap: 60px;
+    animation: scroll 20s linear infinite;
+  }
+
+  .brand-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 4px;
+    color: rgba(255,255,255,0.12);
+    white-space: nowrap;
+    transition: color 0.3s;
+    cursor: default;
+  }
+
+  .brand-name:hover { color: rgba(255,255,255,0.5); }
+
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ---- PROMO BANNER ---- */
+  .promo {
+    margin: 0 80px;
+    background: var(--red);
+    padding: 60px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 100px;
+  }
+
+  .promo::before {
+    content: 'SALE';
+    position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 200px;
+    color: rgba(0,0,0,0.1);
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    letter-spacing: 0px;
+    pointer-events: none;
+  }
+
+  .promo-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 8px;
+  }
+
+  .promo-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 5vw, 70px);
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+
+  .promo-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--red);
+    background: var(--white);
+    border: none;
+    padding: 20px 48px;
+    cursor: crosshair;
+    text-decoration: none;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+
+  .promo-btn:hover { background: var(--black); color: var(--white); }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background: var(--deep);
+    border-top: 1px solid var(--border);
+    padding: 80px 80px 40px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
+  }
+
+  .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    letter-spacing: 4px;
+    margin-bottom: 16px;
+  }
+
+  .footer-brand span { color: var(--red); }
+
+  .footer-desc {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--grey);
+    line-height: 1.8;
+    max-width: 280px;
+    margin-bottom: 28px;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 12px;
+  }
+
+  .social-link {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: crosshair;
+    transition: border-color 0.2s, background 0.2s;
+    text-decoration: none;
+    color: var(--grey);
+  }
+
+  .social-link:hover {
+    border-color: var(--red);
+    background: var(--red);
+    color: var(--white);
+  }
+
+  .footer-col-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: var(--grey);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--white); }
+
+  .footer-bottom {
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    color: var(--grey);
+    letter-spacing: 1px;
+  }
+
+  .footer-copy span { color: var(--red); }
+
+  /* ---- SCROLL ANIMATION ---- */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---- HERO ANIMATIONS ---- */
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-60px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  .hero-tag { animation: slideIn 0.8s ease forwards; }
+  .hero-title { animation: slideIn 0.8s 0.15s ease both; }
+  .hero-desc { animation: slideIn 0.8s 0.3s ease both; }
+  .hero-cta { animation: slideIn 0.8s 0.45s ease both; }
+  .hero-stats { animation: fadeIn 1s 0.7s ease both; }
+
+  .hero-ring {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 1200px) {
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .categories-grid { grid-template-columns: 1fr; }
+    .section { padding: 60px 24px; }
+    .magazine-section { padding: 60px 24px; }
+    .magazine-grid { grid-template-columns: 1fr; }
+    .mag-card-big { grid-row: span 1; min-height: 400px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .promo { margin: 0 24px 60px; padding: 40px; flex-direction: column; gap: 24px; }
+    nav { padding: 0 24px; }
+    .hero-left { padding: 100px 24px 60px; }
+    .brands-section { padding: 40px 24px; }
+  }
+</style>
 </head>
 <body>
-    <header>
-        <h1>IRONCLAD Спортни Съоръжения</h1>
-        <nav>
-            <a href="#home">Начало</a>
-            <a href="#products">Продукти</a>
-            <a href="#magazine">Списание</a>
-            <a href="#contact">Контакт</a>
-        </nav>
-    </header>
-    <section class="hero">
-        <h1>Добре дошли в IRONCLAD</h1>
-    </section>
-    <section class="product-category">
-        <h2>Категории Продукти</h2>
-        <div>
-            <h3>Боксово Оборудване</h3>
-            <p>Оборудване за бокс и бойни спортове.</p>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">IRON<span>CLAD</span></a>
+  <ul class="nav-links">
+    <li><a href="#categories">Категории</a></li>
+    <li><a href="#products">Продукти</a></li>
+    <li><a href="#magazine">Списание</a></li>
+    <li><a href="#brands">Марки</a></li>
+    <li><a href="#contact">Контакти</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="cart-btn">🛒 Количка (0)</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Сезон 2025 — Ново оборудване</div>
+    <h1 class="hero-title">
+      БОРИ СЕ<br>
+      <span class="stroke">КАТО</span><br>
+      <span class="accent">ШАМПИОН</span>
+    </h1>
+    <p class="hero-desc">
+      Премиум екипировка за бокс, борба и ММА. 
+      Само за онези, които не познават думата "предай се". 
+      Оборудвай се. Тренирай. Побеждавай.
+    </p>
+    <div class="hero-cta">
+      <a href="#products" class="btn-primary"><span>Пазарувай сега</span></a>
+      <a href="#magazine" class="btn-secondary">Нашето списание</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">500<span>+</span></div>
+        <div class="stat-label">Продукта</div>
+      </div>
+      <div>
+        <div class="stat-num">12<span>k</span></div>
+        <div class="stat-label">Клиента</div>
+      </div>
+      <div>
+        <div class="stat-num">15<span>г.</span></div>
+        <div class="stat-label">Опит</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-text">MMA</div>
+    <div class="hero-visual">
+      <div class="hero-ring">
+        <svg class="fighter-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Octagon background -->
+          <polygon points="200,20 320,60 380,180 380,220 320,340 200,380 80,340 20,220 20,180 80,60" fill="rgba(232,25,44,0.05)" stroke="rgba(232,25,44,0.2)" stroke-width="1.5"/>
+          <polygon points="200,40 308,74 360,182 360,218 308,326 200,360 92,326 40,218 40,182 92,74" fill="rgba(232,25,44,0.03)" stroke="rgba(232,25,44,0.1)" stroke-width="1"/>
+          
+          <!-- Gloves -->
+          <ellipse cx="120" cy="200" rx="45" ry="35" fill="#c9000f" opacity="0.9"/>
+          <ellipse cx="280" cy="200" rx="45" ry="35" fill="#c9000f" opacity="0.9"/>
+          <rect x="100" y="185" width="40" height="30" rx="4" fill="#a5000d"/>
+          <rect x="260" y="185" width="40" height="30" rx="4" fill="#a5000d"/>
+          
+          <!-- Glove details -->
+          <ellipse cx="120" cy="198" rx="30" ry="20" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
+          <ellipse cx="280" cy="198" rx="30" ry="20" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
+          
+          <!-- Laces -->
+          <line x1="106" y1="192" x2="134" y2="192" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+          <line x1="266" y1="192" x2="294" y2="192" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+          
+          <!-- Center text -->
+          <text x="200" y="205" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="22" fill="rgba(240,236,228,0.9)" letter-spacing="4">IRONCLAD</text>
+          <text x="200" y="225" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="10" fill="rgba(232,25,44,0.8)" letter-spacing="6" font-weight="700">FIGHT GEAR</text>
+          
+          <!-- Decorative stars/dots -->
+          <circle cx="200" cy="100" r="3" fill="rgba(232,25,44,0.6)"/>
+          <circle cx="200" cy="300" r="3" fill="rgba(232,25,44,0.6)"/>
+          <circle cx="100" cy="200" r="2" fill="rgba(232,25,44,0.4)"/>
+          <circle cx="300" cy="200" r="2" fill="rgba(232,25,44,0.4)"/>
+          
+          <!-- Corner marks -->
+          <line x1="185" y1="20" x2="215" y2="20" stroke="rgba(232,25,44,0.5)" stroke-width="2"/>
+          <line x1="185" y1="380" x2="215" y2="380" stroke="rgba(232,25,44,0.5)" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">БОКС</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">БОРБА</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">MMA</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">РЪКАВИЦИ</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">ПРОТЕКТОРИ</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">ШЛЕМОВЕ</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">ФОРМА</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">ТОРБИ</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">БОКС</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">БОРБА</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">MMA</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">РЪКАВИЦИ</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">ПРОТЕКТОРИ</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">ШЛЕМОВЕ</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">ФОРМА</span><span class="ticker-dot"> ✦ </span>
+    <span class="ticker-item">ТОРБИ</span><span class="ticker-dot"> ✦ </span>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section id="categories" class="section">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Избери спорт</div>
+      <h2 class="section-title">КАТЕГОРИИ</h2>
+    </div>
+    <a href="#" class="section-link">Виж всички →</a>
+  </div>
+
+  <div class="categories-grid">
+    <!-- BOXING -->
+    <div class="cat-card cat-boxing fade-up">
+      <div class="cat-overlay-line"></div>
+      <div class="cat-bg">
+        <!-- Hexagon pattern -->
+        <svg class="cat-pattern" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <pattern id="hex" x="0" y="0" width="30" height="34" patternUnits="userSpaceOnUse">
+              <polygon points="15,1 28,8.5 28,25.5 15,33 2,25.5 2,8.5" fill="none" stroke="rgba(232,25,44,1)" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <rect width="200" height="200" fill="url(#hex)"/>
+        </svg>
+      </div>
+      <div class="cat-content">
+        <div class="cat-icon">🥊</div>
+        <div class="cat-title">БОКС</div>
+        <div class="cat-sub">Boxing Equipment</div>
+        <div class="cat-count">124 продукта →</div>
+      </div>
+    </div>
+
+    <!-- WRESTLING -->
+    <div class="cat-card cat-wrestling fade-up" style="transition-delay:0.15s">
+      <div class="cat-overlay-line"></div>
+      <div class="cat-bg">
+        <svg class="cat-pattern" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <pattern id="dia" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+              <rect x="5" y="5" width="20" height="20" fill="none" stroke="rgba(100,130,232,0.8)" stroke-width="1" transform="rotate(45 15 15)"/>
+            </pattern>
+          </defs>
+          <rect width="200" height="200" fill="url(#dia)"/>
+        </svg>
+      </div>
+      <div class="cat-content">
+        <div class="cat-icon">🤼</div>
+        <div class="cat-title">БОРБА</div>
+        <div class="cat-sub">Wrestling Gear</div>
+        <div class="cat-count">89 продукта →</div>
+      </div>
+    </div>
+
+    <!-- MMA -->
+    <div class="cat-card cat-mma fade-up" style="transition-delay:0.3s">
+      <div class="cat-overlay-line"></div>
+      <div class="cat-bg">
+        <svg class="cat-pattern" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <pattern id="tri" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+              <polygon points="20,2 38,35 2,35" fill="none" stroke="rgba(50,200,80,0.7)" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <rect width="200" height="200" fill="url(#tri)"/>
+        </svg>
+      </div>
+      <div class="cat-content">
+        <div class="cat-icon">🥋</div>
+        <div class="cat-title">MMA</div>
+        <div class="cat-sub">Mixed Martial Arts</div>
+        <div class="cat-count">198 продукта →</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section id="products" class="section products-section">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Топ избор</div>
+      <h2 class="section-title">ПРЕПОРЪЧАНИ</h2>
+    </div>
+    <a href="#" class="section-link">Всички продукти →</a>
+  </div>
+
+  <div class="products-grid">
+
+    <!-- Product 1 -->
+    <div class="product-card fade-up">
+      <div class="product-badge badge-new">НОВО</div>
+      <div class="product-img">
+        🥊
+        <div class="product-hover-line"></div>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Бокс</div>
+        <div class="product-name">Pro Fighter Ръкавици</div>
+        <div class="product-brand">Winning • 12 oz</div>
+        <div class="product-footer">
+          <div class="product-price">179 лв.</div>
+          <button class="add-btn">+</button>
         </div>
-        <div>
-            <h3>Фитнес Оборудване</h3>
-            <p>Оборудване за фитнес тренировки.</p>
+      </div>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="product-card fade-up" style="transition-delay:0.1s">
+      <div class="product-badge badge-sale">−30%</div>
+      <div class="product-img">
+        🪖
+        <div class="product-hover-line"></div>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Бокс / MMA</div>
+        <div class="product-name">Боксьорски Шлем Elite</div>
+        <div class="product-brand">Ringside • L/XL</div>
+        <div class="product-footer">
+          <div class="product-price"><span class="old">249</span>174 лв.</div>
+          <button class="add-btn">+</button>
         </div>
-        <div>
-            <h3>Спортни Аксесоари</h3>
-            <p>Допълнителни аксесоари за спорт.</p>
+      </div>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="product-card fade-up" style="transition-delay:0.2s">
+      <div class="product-badge badge-hot">ГОРЕЩО</div>
+      <div class="product-img">
+        👟
+        <div class="product-hover-line"></div>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Борба</div>
+        <div class="product-name">Борцовски Обувки X7</div>
+        <div class="product-brand">ASICS • 38–46</div>
+        <div class="product-footer">
+          <div class="product-price">259 лв.</div>
+          <button class="add-btn">+</button>
         </div>
-    </section>
-    <section class="featured-products">
-        <h2>Избрани Продукти</h2>
-        <div>
-            <h3>Боксова Ръкавица</h3>
-            <p>Висококачествени ръкавици за бокс.</p>
+      </div>
+    </div>
+
+    <!-- Product 4 -->
+    <div class="product-card fade-up" style="transition-delay:0.3s">
+      <div class="product-badge badge-pro">PRO</div>
+      <div class="product-img">
+        🩲
+        <div class="product-hover-line"></div>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">MMA</div>
+        <div class="product-name">ММА Шорти Combat</div>
+        <div class="product-brand">Venum • S–3XL</div>
+        <div class="product-footer">
+          <div class="product-price">129 лв.</div>
+          <button class="add-btn">+</button>
         </div>
-        <div>
-            <h3>Фитнес Бариери</h3>
-            <p>Бариери за тренировки и фитнес.</p>
+      </div>
+    </div>
+
+    <!-- Product 5 -->
+    <div class="product-card fade-up">
+      <div class="product-badge badge-new">НОВО</div>
+      <div class="product-img">
+        🎽
+        <div class="product-hover-line"></div>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Борба</div>
+        <div class="product-name">Борцовски Трико Pro</div>
+        <div class="product-brand">Adidas • XS–XXL</div>
+        <div class="product-footer">
+          <div class="product-price">149 лв.</div>
+          <button class="add-btn">+</button>
         </div>
-    </section>
-    <section id="magazine">
-        <h2>Списание</h2>
-        <p>Най-новите новини и статии за спорт.</p>
-    </section>
-    <footer>
-        <p>© 2026 IRONCLAD Спортни Съоръжения</p>
-    </footer>
+      </div>
+    </div>
+
+    <!-- Product 6 -->
+    <div class="product-card fade-up" style="transition-delay:0.1s">
+      <div class="product-badge badge-sale">−20%</div>
+      <div class="product-img">
+        💪
+        <div class="product-hover-line"></div>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">MMA / Бокс</div>
+        <div class="product-name">Бинтове за Ръце Pro</div>
+        <div class="product-brand">RDX • 4.5 м</div>
+        <div class="product-footer">
+          <div class="product-price"><span class="old">39</span>31 лв.</div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 7 -->
+    <div class="product-card fade-up" style="transition-delay:0.2s">
+      <div class="product-badge badge-hot">ТОП</div>
+      <div class="product-img">
+        🥋
+        <div class="product-hover-line"></div>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">MMA</div>
+        <div class="product-name">ММА Ръкавици Sparring</div>
+        <div class="product-brand">Hayabusa • S–XXL</div>
+        <div class="product-footer">
+          <div class="product-price">219 лв.</div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 8 -->
+    <div class="product-card fade-up" style="transition-delay:0.3s">
+      <div class="product-badge badge-pro">PRO</div>
+      <div class="product-img">
+        🛡️
+        <div class="product-hover-line"></div>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Бокс / MMA</div>
+        <div class="product-name">Протектор за Тяло</div>
+        <div class="product-brand">Fairtex • M–XL</div>
+        <div class="product-footer">
+          <div class="product-price">199 лв.</div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROMO BANNER -->
+<div class="promo">
+  <div>
+    <div class="promo-label">Лятна разпродажба — до края на месеца</div>
+    <div class="promo-title">ДО 40% ОТСТЪПКА<br>НА ВСИЧКО</div>
+  </div>
+  <a href="#" class="promo-btn">Купи сега</a>
+</div>
+
+<!-- MAGAZINE -->
+<section id="magazine" class="magazine-section">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Последни статии</div>
+      <h2 class="section-title">СПИСАНИЕ</h2>
+    </div>
+    <a href="#" class="section-link">Всички статии →</a>
+  </div>
+
+  <div class="magazine-grid">
+    <!-- Big article -->
+    <div class="mag-card mag-card-big fade-up">
+      <div class="mag-img" style="background: linear-gradient(135deg, #1a0508, #2d0010); font-size: 160px;">🥊</div>
+      <div class="mag-content">
+        <div class="mag-cat">Бокс • Техника</div>
+        <div class="mag-title">5 ОСНОВНИ ТЕХНИКИ ЗА НОКАУТ, КОИТО ТРЯБВА ДА ЗНАЕШ</div>
+        <div class="mag-meta">12 Май 2025 • 8 мин. четене</div>
+      </div>
+    </div>
+
+    <!-- Small articles -->
+    <div class="mag-card mag-card-small fade-up" style="transition-delay:0.15s">
+      <div class="mag-img" style="background: linear-gradient(135deg, #050a1a, #001020); font-size: 80px;">🤼</div>
+      <div class="mag-content">
+        <div class="mag-cat">Борба • Тренировка</div>
+        <div class="mag-title">ПОДГОТОВКАТА НА ШАМПИОНИ: ПРОГРАМА ЗА 8 СЕДМИЦИ</div>
+        <div class="mag-meta">8 Май 2025 • 5 мин.</div>
+      </div>
+    </div>
+
+    <div class="mag-card mag-card-small fade-up" style="transition-delay:0.25s">
+      <div class="mag-img" style="background: linear-gradient(135deg, #030a05, #001208); font-size: 80px;">🏆</div>
+      <div class="mag-content">
+        <div class="mag-cat">MMA • Новини</div>
+        <div class="mag-title">UFC 300: АНАЛИЗ НА НАЙ-ЕПИЧНАТА ВЕЧЕР</div>
+        <div class="mag-meta">5 Май 2025 • 4 мин.</div>
+      </div>
+    </div>
+
+    <div class="mag-card mag-card-small fade-up" style="transition-delay:0.35s">
+      <div class="mag-img" style="background: linear-gradient(135deg, #1a0a00, #2d1500); font-size: 80px;">💪</div>
+      <div class="mag-content">
+        <div class="mag-cat">Хранене • Здраве</div>
+        <div class="mag-title">ДИЕТАТА НА БОЕЦА: КАК ДА ПОДДЪРЖАШ ФОРМА</div>
+        <div class="mag-meta">2 Май 2025 • 6 мин.</div>
+      </div>
+    </div>
+
+    <div class="mag-card mag-card-small fade-up" style="transition-delay:0.45s">
+      <div class="mag-img" style="background: linear-gradient(135deg, #0f0a1a, #1a1030); font-size: 80px;">🧠</div>
+      <div class="mag-content">
+        <div class="mag-cat">Психология • Мотивация</div>
+        <div class="mag-title">МЕНТАЛНАТА СИЛА: СЕКРЕТЪТ НА ВСЕКИ ШАМПИОН</div>
+        <div class="mag-meta">28 Апр 2025 • 7 мин.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section id="brands" class="brands-section">
+  <div class="brands-label">Работим с водещите световни марки</div>
+  <div style="overflow:hidden">
+    <div class="brands-track">
+      <span class="brand-name">VENUM</span>
+      <span class="brand-name">HAYABUSA</span>
+      <span class="brand-name">FAIRTEX</span>
+      <span class="brand-name">RINGSIDE</span>
+      <span class="brand-name">WINNING</span>
+      <span class="brand-name">ADIDAS</span>
+      <span class="brand-name">RDX</span>
+      <span class="brand-name">TITLE</span>
+      <span class="brand-name">COMBAT</span>
+      <span class="brand-name">ASICS</span>
+      <span class="brand-name">VENUM</span>
+      <span class="brand-name">HAYABUSA</span>
+      <span class="brand-name">FAIRTEX</span>
+      <span class="brand-name">RINGSIDE</span>
+      <span class="brand-name">WINNING</span>
+      <span class="brand-name">ADIDAS</span>
+      <span class="brand-name">RDX</span>
+      <span class="brand-name">TITLE</span>
+      <span class="brand-name">COMBAT</span>
+      <span class="brand-name">ASICS</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">IRON<span>CLAD</span></div>
+      <p class="footer-desc">
+        Вашият надежден партньор в света на бойните спортове. 
+        Екипировка за шампиони — бокс, борба и ММА.
+      </p>
+      <div class="social-links">
+        <a href="#" class="social-link">f</a>
+        <a href="#" class="social-link">ig</a>
+        <a href="#" class="social-link">yt</a>
+        <a href="#" class="social-link">tk</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="footer-col-title">Магазин</div>
+      <ul class="footer-links">
+        <li><a href="#">Бокс</a></li>
+        <li><a href="#">Борба</a></li>
+        <li><a href="#">MMA</a></li>
+        <li><a href="#">Разпродажби</a></li>
+        <li><a href="#">Нови продукти</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-col-title">Информация</div>
+      <ul class="footer-links">
+        <li><a href="#">За нас</a></li>
+        <li><a href="#">Доставка</a></li>
+        <li><a href="#">Връщане</a></li>
+        <li><a href="#">Размери</a></li>
+        <li><a href="#">Гаранция</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-col-title">Контакт</div>
+      <ul class="footer-links">
+        <li><a href="#">📞 0800 123 456</a></li>
+        <li><a href="#">✉ info@ironclad.bg</a></li>
+        <li><a href="#">📍 Пловдив, България</a></li>
+        <li><a href="#">Пн–Пт: 9:00 – 18:00</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 <span>IRONCLAD</span> — Всички права запазени</div>
+    <div class="footer-copy">Бокс ✦ Борба ✦ MMA</div>
+  </div>
+</footer>
+
+<script>
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Cart button
+  let cartCount = 0;
+  document.querySelectorAll('.add-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      cartCount++;
+      document.querySelector('.cart-btn').textContent = `🛒 Количка (${cartCount})`;
+      btn.textContent = '✓';
+      btn.style.background = '#2d7a2d';
+      setTimeout(() => {
+        btn.textContent = '+';
+        btn.style.background = '';
+      }, 1200);
+    });
+  });
+
+  // Smooth nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    links.forEach(a => {
+      a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--white)' : '';
+    });
+  });
+</script>
+
 </body>
 </html>
